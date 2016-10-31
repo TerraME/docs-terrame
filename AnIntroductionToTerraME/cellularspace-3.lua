@@ -1,7 +1,7 @@
 cell = Cell{
     state = Random{min = 1, max = 3},
-	init = function(cell)
-		cell.value = cell.x * cell.state
+	value = function(self)
+		return self.x * self.state
 	end
 }
 
