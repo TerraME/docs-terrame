@@ -4,7 +4,7 @@ cell = Cell{
 
 space = CellularSpace{
     instance = cell,
-    xdim = 10
+    xdim = 30
 }
 
 map = Map{
