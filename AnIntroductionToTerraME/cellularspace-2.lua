@@ -11,7 +11,7 @@ map = Map{
 	target = space,
 	select = "state",
 	value = {"alive", "dead"},
-	color = {"black", "gray"}
+	color = {"blue", "gray"}
 }
 
 map:save("cellularspace-2.png")
