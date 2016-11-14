@@ -38,6 +38,16 @@ instance = SIR{}
 
 instance:run()
 
+instance.chart:save("sir-basic.png")
+
+instance = SIR{
+	duration = 4,
+	contacts = 2,
+	finalTime = 80
+}
+
+instance:run()
+
 instance.chart:save("sir-instance.png")
 
 env = Environment{
@@ -62,5 +72,7 @@ env:add(timer)
 env:run()
 
 chart:save("sir-scenario.png")
+
+SIR:configure()
 
 
