@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>TerraME Release</title>
+	<style>
+		table, th, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+		}
+	</style>
+</head>
+<body>
+	<table id="table-releases">
+		<tr>
+			<th>Installer</th>
+			<th>Count</th>
+		</tr>
+	</table>
+	<script>
+		var getJSON = function(url, successHandler, errorHandler) {
+			var xhr = new XMLHttpRequest();
+			xhr.open('get', url, true);
+			xhr.responseType = 'json';
+			xhr.onload = function() {
+				var status = xhr.status;
+				if (status == 200) {
+					successHandler && successHandler(xhr.response);
+				} else {
+					errorHandler && errorHandler(status);
+				}
+			};
+			xhr.send();
+		};
+
+		function getFileExtension(filename) {
+			return filename.slice((filename.lastIndexOf(".") - 1 >>> 0) + 2);
+		}
+
+		getJSON("https://api.github.com/repos/TerraME/terrame/releases", function(releases) {
+			var total = 0;
+			var table = document.getElementById('table-releases');
+			for(var i = 0; i < releases.length; i++){
+				var data = releases[i];
+				var assets = data.assets;
+
+				var tr, td;
+				for(var j = 0; j < assets.length; j++){
+					var asset = assets[j];
+					var installer = asset.browser_download_url;
+
+					if(getFileExtension(installer) != "txt"){
+						var filename = installer.replace(/^.*[\\\/]/, '');
+						var count = asset.download_count;
+						total += count;
+
+						tr = document.createElement('tr');
+						td = document.createElement('td');
+						td.innerHTML = filename;
+						tr.appendChild(td);
+
+						td = document.createElement('td');
+						td.innerHTML = count;
+						td.style.textAlign = "right";
+						tr.appendChild(td);
+
+						table.appendChild(tr);
+					}
+				}
+			}
+
+			tr = document.createElement('tr');
+			td = document.createElement('td');
+			td.innerHTML = "Total ";
+			td.style.fontWeight = "bold";
+			tr.appendChild(td);
+
+			td = document.createElement('td');
+			td.innerHTML = total;
+			td.style.textAlign = "right";
+			tr.appendChild(td);
+
+			table.appendChild(tr);
+		}, function(status) {
+			alert("Something went wrong " + status);
+		});
+	</script>
+</body>
+</html>
