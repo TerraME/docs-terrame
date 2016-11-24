@@ -49,3 +49,10 @@ Fire = Model{
 }
 
 Fire:run()
+
+------------------------
+
+fire = Fire{}
+fire:run()
+fire.chart:save("fire-chart.png")
+clean()
