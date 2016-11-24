@@ -5,14 +5,14 @@ Fire = Model{
     init = function(model)
         model.cell = Cell{
             state = "forest",
-            execute = function(cell)
-                if cell.past.state == "burning" then
-                    cell.state = "burned"
-                elseif cell.past.state == "forest" then
-					forEachNeighbor(cell, function(_, neigh)
-						if neigh.past.state == "burning" then
-                        	cell.state = "burning"
-						end
+            execute = function(self)
+                if self.past.state == "burning" then
+                    self.state = "burned"
+                elseif self.past.state == "forest" then
+                    forEachNeighbor(self, function(_, neigh)
+                        if neigh.past.state == "burning" then
+                            self.state = "burning"
+                        end
                     end)
                 end
             end
@@ -23,8 +23,8 @@ Fire = Model{
             instance = model.cell,
         }
 
-        model.cs:sample().state = "burning"
         model.cs:createNeighborhood{strategy = "vonneumann"}
+        model.cs:sample().state = "burning"
 
         model.chart = Chart{
             target = model.cs,
@@ -48,7 +48,7 @@ Fire = Model{
     end
 }
 
-Fire:run()
+--Fire:run()
 
 ------------------------
 
