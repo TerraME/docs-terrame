@@ -1,0 +1,74 @@
+GrowingSociety = Model{
+    quantity = 10,
+    dim = 100,
+    finalTime = 120,
+    init = function(model)
+        model.agent = Agent{
+            execute = function(self)
+				local cell = self:getCell():getNeighborhood():sample()
+                if cell:isEmpty() and Random():number() < 0.3 then
+                    local child = self:reproduce()
+                    child:move(cell)
+                end
+
+				cell = self:getCell():getNeighborhood():sample()
+				if cell:isEmpty() then
+					self:move(cell)
+				end
+            end
+        }
+
+        model.soc = Society{
+            instance = model.agent,
+            quantity = model.quantity
+        }
+
+		model.cell = Cell{
+			state = function(self)
+				if self:isEmpty() then
+					return "empty"
+				else
+					return "full"
+				end
+			end
+		}
+
+        model.cs = CellularSpace{
+            xdim = model.dim,
+			instance = model.cell
+        }
+
+        model.cs:createNeighborhood()
+
+        model.env = Environment{
+            model.cs,
+            model.soc
+        }
+
+        model.env:createPlacement()
+
+        model.map = Map{
+            target = model.cs,
+			select = "state",
+			value = {"full", "empty"},
+			color = {"black", "white"}
+        }
+
+        model.chart = Chart{
+            target = model.soc
+        }
+
+        model.timer = Timer{
+            Event{action = model.soc},
+            Event{action = model.map},
+            Event{action = model.chart}
+        }
+    end
+}
+                                                   
+--GrowingSociety:run()
+
+gs = GrowingSociety{}
+gs:run()
+gs.chart:save("growingsociety-chart.png")
+
