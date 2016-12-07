@@ -1,0 +1,37 @@
+Legend{
+    -- Attribute: forest
+    type = "number",
+    grouping = "quantil",
+    slices = 5,
+    precision = 0,
+    stdDeviation = "none",
+    maximum = 2,
+    minimum = 0,
+    symbol = "Â®",
+    font = "Symbol",
+    fontSize = 12,
+    colorBar = {
+        color = {{49, 163, 84}, distance = 0},
+        color = {{229, 245, 224}, distance = 1}
+    },
+    stdColorBar = {}
+};
+
+Legend{
+    -- Attribute: soil
+    type = "number",
+    grouping = "quantil",
+    slices = 21,
+    precision = 2,
+    stdDeviation = "none",
+    maximum = 7,
+    minimum = 0,
+    symbol = "Â®",
+    font = "Symbol",
+    fontSize = 12,
+    colorBar = {
+        color = {{254, 230, 206}, distance = 0},
+        color = {{230, 85, 13}, distance = 1}
+    },
+    stdColorBar = {}
+};
