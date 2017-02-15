@@ -43,7 +43,6 @@ qtty_strategies__ = #STRATEGIES
 
 changed = false
 
-
 function Game(p1, p2)
 	if p1 == SHOOT     and p2 == SHOOT     then return {-10,-10} end
 	if p1 == SHOOT     and p2 == NOT_SHOOT then return {  1, -1} end
@@ -88,7 +87,6 @@ function InitialStrategy()
 	count__ = (count__ + 1) % qtty_strategies__
 	return STRATEGIES[count__ + 1]
 end
-
 
 agent = Agent{
 	money    = INITIAL_MONEY,
@@ -161,8 +159,6 @@ cell = Cell{
 	-- the cell must have at least one agent to call this function
 	owner = function(cell)
 		local players = cell:getAgents()
-
-
 		local owner = players[1]
 
 		forEachAgent(cell, function(player)
@@ -177,8 +173,6 @@ cell = Cell{
 		local owner = cell:owner()
 		if not owner then return 0.0 end
 		return owner.strategy
-		--pos = PositionOfStrategy(owner)
-		--return pos
 	end,
 	quantity = function(cell)
 		local quant = #cell:getAgents()
@@ -189,14 +183,12 @@ cell = Cell{
 
 -- use the internal__ variables and clean them
 function ShowState(cs)
-
 	for i = 1, qtty_strategies__, 1 do
 		movements__[i] = 0
 		owners__   [i] = 0
 		money__    [i] = 0
 		balance__  [i] = 0
 	end
-
 
 	forEachCell(cs, function(cell)
 		forEachAgent(cell, function(player)
@@ -209,10 +201,9 @@ function ShowState(cs)
 		if #cell:getAgents() > 0 then
 			local p = PositionOfStrategy(cell:owner())
 			owners__[p] = owners__[p] + 1
-		else
-			--cell.owner = 0
 		end
 	end)
+
 	p = ""
 	m = ""
 	o = ""
@@ -283,16 +274,18 @@ env = Environment{soc, cs}
 
 env:createPlacement{strategy = "uniform"}
 
-Map{
+map1 = Map{
 	target = cs,
+	grid = true,
 	select = "strategy",
 	value = {0, 0.1, 0.5, 1.0},
 	color = {"white", "green", "blue", "red"}
 }
 
-Map{
+map2 = Map{
 	target = cs,
 	select = "quantity",
+	grid = true,
 	color = {"white", "yellow", "purple", "black"},
 	value = {0, 1, 2, 3},
 	label = {"0", "1", "2", "3 or more"}
@@ -306,27 +299,42 @@ forEachElement(owners__, function(idx, value)
 end)
 
 c = Cell{
-	p01 = function() return owners__[1] end,
-	p05 = function() return owners__[2] end,
-	p10 = function() return owners__[3] end,
+	p01 = function() return players__[1] end,
+	p05 = function() return players__[2] end,
+	p10 = function() return players__[3] end,
+	o01 = function() return owners__[1] end,
+	o05 = function() return owners__[2] end,
+	o10 = function() return owners__[3] end,
 }
 
-Chart{
+chart1 = Chart{
 	target = c,
 	select = {"p01", "p05", "p10"},
-	title = "Owner",
+	title = "Players",
 	color = {"green", "blue", "red"}
 }
-c:notify()
 
-changed = true
-while changed do
-	changed = false
-	cs:runTurn()
-	soc:execute()
+chart2 = Chart{
+	target = c,
+	select = {"o01", "o05", "o10"},
+	title = "Owners",
+	color = {"green", "blue", "red"}
+}
 
-	ShowState(cs)
-	cs:notify()
-	c:notify()
-end
+timer = Timer{
+	Event{action = chart1},
+	Event{action = chart2},
+	Event{action = map1},
+	Event{action = map2},
+	Event{action = function()
+		changed = false
+		cs:runTurn()
+		soc:execute()
+
+		ShowState(cs)
+		return changed
+	end}
+}
+
+timer:run(2000)
 
