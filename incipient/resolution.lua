@@ -1,90 +1,56 @@
-
 function histogram(groups)
-	counter = {}
+	counter = DataFrame{c1 = {} , c2 = {}, c3 = {}, c4 = {}}
 	max = 1
 
 	forEachElement(groups, function(idx, group)
-		counter[idx] = {}
-
 		forEachAgent(group, function(agent)
 			local dist = math.ceil(agent:workdistance())
 
 			if dist > max then
 				max = dist
 			end
-
-			if not counter[idx][dist] then
-				counter[idx][dist] = 1
-			else
-				counter[idx][dist] = counter[idx][dist] + 1
-			end
 		end)
 	end)
 
-	-- normalize quantities
---[[
 	forEachElement(groups, function(idx, group)
 		local size = #group
 
-		for i = 1, max do
-			if counter[idx][i] then	
-				counter[idx][i] = counter[idx][i] / size
-			end
+		for i = 0, max do
+			counter[i][idx] = 0
 		end
-	end)
---]]
-	c = Cell{}
 
-	forEachElement(groups, function(idx)
-		c[idx] = 0
+		forEachAgent(group, function(agent)
+			local dist = math.ceil(agent:workdistance())
+			counter[idx][dist] = counter[idx][dist] + 1 / size
+		end)
 	end)
 
 	chart = Chart{
-		target = c,
+		target = counter,
 		xLabel = "Distance",
-		yLabel = "Count"
+		yLabel = "Proportion"
 	}
-
-	for i = 1, max do
-		forEachElement(groups, function(idx)
-			if counter[idx][i] then
-				c[idx] = counter[idx][i]
-			else
-				c[idx] = 0
-			end
-		end)
-
-		chart:update(i)
-	end
 end
 
 function counter(class, placement)
-	return function(self)
+	return function(cell)
 		local count = 0
 
-		local agents = self:getAgents(placement)
-
-		if not agents then return 0 end
-
-		for i = 1, #agents do
-			if agents[i].class == class then
+		forEachAgent(cell, placement, function(agent)
+			if agent.class == class then
 				count = count + 1
 			end
-		end
+		end)
 
 		return count -- if removing this line, a strange error appears
 	end
 end
 
 cell = Cell{
-	c1h = counter("c1", "house"),
-	c2h = counter("c2", "house"),
-	c3h = counter("c3", "house"),
-	c4h = counter("c4", "house"),
-	c1w = counter("c1", "workplace"),
-	c2w = counter("c2", "workplace"),
-	c3w = counter("c3", "workplace"),
-	c4w = counter("c4", "workplace")
+	c1h = counter("c1", "house"), c1w = counter("c1", "workplace"),
+	c2h = counter("c2", "house"), c2w = counter("c2", "workplace"),
+	c3h = counter("c3", "house"), c3w = counter("c3", "workplace"),
+	c4h = counter("c4", "house"), c4w = counter("c4", "workplace")
 }
 
 priority = {
@@ -113,16 +79,14 @@ citizen = Agent{
 		local count = 0
 		local quantity = 0
 
-		forEachNeighbor(workplace, "workplace", function(_, cell)
-			local agents = cell:getAgents("workplace")
-	
-			quantity = quantity + #agents
+		forEachNeighbor(workplace, "workplace", function(_, neigh)
+			forEachAgent(neigh, "workplace", function(agent)
+				quantity = quantity + 1
 
-			for i = 1, #agents do
-				if agents[i].class == self.class then
+				if agent.class == self.class then
 					count = count + 1
 				end
-			end
+			end)
 		end)
 
 		if groupedWork[self.class] then
@@ -136,18 +100,6 @@ citizen = Agent{
 		local quantity = 0
 
 		forEachNeighbor(house, "house", function(_, cell)
----------------------------------------------------------
-			local agents = cell:getAgents("house")
-	
-			quantity = quantity + #agents
-
-			for i = 1, #agents do
-				if agents[i].class == self.class then
-					count = count + 1
-				end
-			end
----------------------------------------------------------
---[[
 			forEachAgent(cell, "house", function(agent)
 				quantity = quantity + 1
 
@@ -155,14 +107,12 @@ citizen = Agent{
 					count = count + 1
 				end
 			end)
---]]
----------------------------------------------------------
 		end)
 
 		return count / quantity
 	end,
 	updateHouse = function(self)
-		local candidate = cellspace:sample()
+		local candidate = city:sample()
 		local current = self:getCell("house")
 		local count = 0
 
@@ -187,7 +137,7 @@ citizen = Agent{
 		end
 	end,
 	updateWork = function(self)
-		local candidate = cellspace:sample()
+		local candidate = city:sample()
 		local current = self:getCell("workplace")
 		local count = 0
 
@@ -195,28 +145,14 @@ citizen = Agent{
 		local newGrade     = self:workGrade(candidate)
 
 		if newGrade > currentGrade and self:workdistance() > candidate:distance(self:getCell("house")) then
---------------------------------------------------------------------
---[[
 			local exchange
 
-			forEachPlacement(candidate, "workplace", function(agent)
+			forEachAgent(candidate, "workplace", function(agent)
 				if self:priority() > agent:priority() then
 					exchange = agent
 					return false
 				end
 			end)
---]]
---------------------------------------------------------------------
-			local agents = candidate:getAgents("workplace")
-			local exchange
-
-			forEachElement(agents, function(_, agent)
-				if self:priority() > agent:priority() then
-					exchange = agent
-					return false
-				end
-			end)
---------------------------------------------------------------------
 
 			if exchange then
 				self:move(candidate, "workplace")
@@ -233,23 +169,21 @@ citizen = Agent{
 	end
 }
 
-cellspace = CellularSpace{
+city = CellularSpace{
 	xdim = 20,
 	instance = cell
 }
 
-cellspace:createNeighborhood{
+city:createNeighborhood{
 	name = "house",
 	self = true
 }
 
-cellspace:createNeighborhood{
+city:createNeighborhood{
 	name = "workplace",
 	strategy = "mxn",
 	m = 5,
-	n = 5,
-	self = true,
-	inmemory = false
+	self = true
 }
 
 society = Society{
@@ -259,46 +193,25 @@ society = Society{
 
 max = 8
 
-env = Environment{cellspace, society}
+env = Environment{city, society}
 env:createPlacement{strategy = "random", max = max, name = "house"}
 env:createPlacement{strategy = "random", max = max, name = "workplace"}
 
-placements = {"h", "w"}
-groups = {"c1", "c2", "c3", "c4"}
+maph1 = Map{target = city, select = "c1h", min = 0, max = max, slices = 11, color = "Blues"}
+maph2 = Map{target = city, select = "c2h", min = 0, max = max, slices = 11, color = "Blues"}
+maph3 = Map{target = city, select = "c3h", min = 0, max = max, slices = 11, color = "Blues"}
+maph4 = Map{target = city, select = "c4h", min = 0, max = max, slices = 11, color = "Blues"}
 
-for i = 1, 4 do
-	_G["map"..i.."h"] = Map{
-		target = cellspace,
-		select = groups[i].."h",
-		min = 0,
-		max = max,
-		slices = 11,
-		color = "Blues"
-	}
-
-	_G["map"..i.."w"] = Map{
-		target = cellspace,
-		select = groups[i].."w",
-		min = 0,
-		max = max,
-		slices = 11,
-		color = "Reds"
-	}
-end
+mapw1 = Map{target = city, select = "c1w", min = 0, max = max, slices = 11, color = "Reds"}
+mapw2 = Map{target = city, select = "c2w", min = 0, max = max, slices = 11, color = "Reds"}
+mapw3 = Map{target = city, select = "c3w", min = 0, max = max, slices = 11, color = "Reds"}
+mapw4 = Map{target = city, select = "c4w", min = 0, max = max, slices = 11, color = "Reds"}
 
 timer = Timer{
 	Event{action = society},
-	Event{action = map1h},
-	Event{action = map2h},
-	Event{action = map3h},
-	Event{action = map4h},
-	Event{action = map1w},
-	Event{action = map2w},
-	Event{action = map3w},
-	Event{action = map4w},
-	Event{action = function(ev)
-		print(ev:getTime())
-	end}
+	Event{action = maph1}, Event{action = maph2}, Event{action = maph3}, Event{action = maph4},
+	Event{action = mapw1}, Event{action = mapw2}, Event{action = mapw3}, Event{action = mapw4},
+	Event{action = function(ev) print(ev:getTime()) end}
 }
 
 histogram(society:split("class"))
