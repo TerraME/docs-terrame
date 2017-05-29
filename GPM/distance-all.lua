@@ -62,5 +62,5 @@ map3 = Map{
 	invert = true
 }
 
-map2:save("distance_all_0.png")
+map3:save("distance_all_0.png")
 os.exit()
