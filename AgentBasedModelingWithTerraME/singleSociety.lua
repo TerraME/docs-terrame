@@ -1,5 +1,5 @@
 
-nonFooAgent = Agent{
+myAgent = Agent{
     name = "nonfoo",
     age = Random{min = 0, max = 10, step = 1},
     execute = function(self)
@@ -20,12 +20,12 @@ nonFooAgent = Agent{
     end
 }
 
-nonFooSociety = Society{
-    instance = nonFooAgent,
+mySociety = Society{
+    instance = myAgent,
     quantity = 50
 }
 
-nonFooSociety:sample().name = "foo"
+mySociety:sample().name = "foo"
 
 cell = Cell{
 	owner = function(self)
@@ -44,7 +44,7 @@ cs = CellularSpace{
 
 cs:createNeighborhood{} -- Moore neighborhood as default
 
-env = Environment{nonFooSociety, cs}
+env = Environment{mySociety, cs}
 
 env:createPlacement{}
 
@@ -57,7 +57,7 @@ map = Map{
 }
 
 t = Timer{
-    Event{action = nonFooSociety},
+    Event{action = mySociety},
     Event{action = map}
 }
 
