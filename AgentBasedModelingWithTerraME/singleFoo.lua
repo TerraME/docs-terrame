@@ -1,8 +1,5 @@
 singleFooAgent = Agent{
-	size = 10,
-	name = "foo",
 	execute = function(self)
-		self.size = self.size + 1
 		self:walk()
 	end
 }
