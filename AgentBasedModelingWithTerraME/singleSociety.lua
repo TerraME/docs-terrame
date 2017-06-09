@@ -1,28 +1,22 @@
 
 myAgent = Agent{
-    name = "nonfoo",
-    age = Random{min = 0, max = 10, step = 1},
-    execute = function(self)
-        self.age = self.age + 1
+	name = "nonfoo",
+	execute = function(self)
+		self:walkIfEmpty()
 
-        local cell = self:getCell():getNeighborhood():sample()
-        if cell:isEmpty() then
-            self:move(cell)
-        end
-
-        forEachNeighbor(cell, function(neigh)
+		forEachNeighbor(self:getCell(), function(neigh)
 			if neigh:isEmpty() then return end
 
-            if neigh:getAgent().name == "foo" then
-                print("Found a foo agent")
-            end
-        end)
-    end
+			if neigh:getAgent().name == "foo" then
+				print("Found a foo agent in the neighborhood")
+			end
+		end)
+	end
 }
 
 mySociety = Society{
-    instance = myAgent,
-    quantity = 50
+	instance = myAgent,
+	quantity = 50
 }
 
 mySociety:sample().name = "foo"
@@ -38,18 +32,21 @@ cell = Cell{
 }
 
 cs = CellularSpace{
-    xdim = 20,
+	xdim = 20,
 	instance = cell
 }
 
-cs:createNeighborhood{} -- Moore neighborhood as default
+cs:createNeighborhood{
+	strategy = "vonneumann",
+	wrap = true
+}
 
 env = Environment{mySociety, cs}
 
 env:createPlacement{}
 
 map = Map{
-    target = cs,
+	target = cs,
 	select = "owner",
 	value = {"none", "foo", "nonfoo"},
 	color = {"gray", "blue", "yellow"},
@@ -57,11 +54,11 @@ map = Map{
 }
 
 t = Timer{
-    Event{action = mySociety},
-    Event{action = map}
+	Event{action = mySociety},
+	Event{action = map}
 }
 
-t:run(10)
+t:run(100)
 
 map:save("singleSociety.png")
 
