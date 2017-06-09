@@ -1,8 +1,8 @@
 singleFooAgent = Agent{
-    execute = function(self)
+	execute = function(self)
 		self:getCell().washere = "yes"
-        self:walk()
-    end
+		self:walk()
+	end
 }
 
 cell = Cell{
@@ -17,29 +17,29 @@ cell = Cell{
 }
 
 cs = CellularSpace{
-    xdim = 10,
+	xdim = 10,
 	instance = cell
 }
 
 cs:createNeighborhood{} -- Moore neighborhood as default
 
 e = Environment{
-    cs,
-    singleFooAgent
+	cs,
+	singleFooAgent
 }
 
 e:createPlacement{} -- random
 
 map = Map{
-    target = cs,
-    select = "state",
+	target = cs,
+	select = "state",
 	value = {"no", "yes", "foo"},
 	color = {"lightGray", "gray", "blue"}
 }
 
 t = Timer{
-    Event{action = singleFooAgent},
-    Event{action = map}
+	Event{action = singleFooAgent},
+	Event{action = map}
 }
 
 t:run(100)
