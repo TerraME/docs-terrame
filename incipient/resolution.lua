@@ -32,6 +32,34 @@ function histogram(groups)
 	}
 end
 
+function totalHistogram(society)
+	counter = DataFrame{total = {}}
+	max = 1
+
+	forEachAgent(society, function(agent)
+		local dist = math.ceil(agent:workdistance())
+
+		if dist > max then
+			max = dist
+		end
+	end)
+
+	for i = 0, max do
+		counter.total[i] = 0
+	end
+
+	forEachAgent(society, function(agent)
+		local dist = math.ceil(agent:workdistance())
+		counter.total[dist] = counter.total[dist] + 1
+	end)
+
+	chart = Chart{
+		target = counter,
+		xLabel = "Distance",
+		yLabel = "Proportion"
+	}
+end
+
 function counter(class, placement)
 	return function(cell)
 		local count = 0
@@ -42,15 +70,15 @@ function counter(class, placement)
 			end
 		end)
 
-		return count -- if removing this line, a strange error appears
+		return count
 	end
 end
 
 cell = Cell{
-	c1h = counter("c1", "house"), c1w = counter("c1", "workplace"),
-	c2h = counter("c2", "house"), c2w = counter("c2", "workplace"),
-	c3h = counter("c3", "house"), c3w = counter("c3", "workplace"),
-	c4h = counter("c4", "house"), c4w = counter("c4", "workplace")
+	c1_house = counter("c1", "house"), c1_workplace = counter("c1", "workplace"),
+	c2_house = counter("c2", "house"), c2_workplace = counter("c2", "workplace"),
+	c3_house = counter("c3", "house"), c3_workplace = counter("c3", "workplace"),
+	c4_house = counter("c4", "house"), c4_workplace = counter("c4", "workplace")
 }
 
 priority = {
@@ -79,7 +107,7 @@ citizen = Agent{
 		local count = 0
 		local quantity = 0
 
-		forEachNeighbor(workplace, "workplace", function(_, neigh)
+		forEachNeighbor(workplace, "workplace", function(neigh)
 			forEachAgent(neigh, "workplace", function(agent)
 				quantity = quantity + 1
 
@@ -99,7 +127,7 @@ citizen = Agent{
 		local count = 0
 		local quantity = 0
 
-		forEachNeighbor(house, "house", function(_, cell)
+		forEachNeighbor(house, "house", function(cell)
 			forEachAgent(cell, "house", function(agent)
 				quantity = quantity + 1
 
@@ -197,15 +225,15 @@ env = Environment{city, society}
 env:createPlacement{strategy = "random", max = max, name = "house"}
 env:createPlacement{strategy = "random", max = max, name = "workplace"}
 
-maph1 = Map{target = city, select = "c1h", min = 0, max = max, slices = 11, color = "Blues"}
-maph2 = Map{target = city, select = "c2h", min = 0, max = max, slices = 11, color = "Blues"}
-maph3 = Map{target = city, select = "c3h", min = 0, max = max, slices = 11, color = "Blues"}
-maph4 = Map{target = city, select = "c4h", min = 0, max = max, slices = 11, color = "Blues"}
+maph1 = Map{target = city, select = "c1_house", min = 0, max = max, slices = 11, color = "Blues"}
+maph2 = Map{target = city, select = "c2_house", min = 0, max = max, slices = 11, color = "Blues"}
+maph3 = Map{target = city, select = "c3_house", min = 0, max = max, slices = 11, color = "Blues"}
+maph4 = Map{target = city, select = "c4_house", min = 0, max = max, slices = 11, color = "Blues"}
 
-mapw1 = Map{target = city, select = "c1w", min = 0, max = max, slices = 11, color = "Reds"}
-mapw2 = Map{target = city, select = "c2w", min = 0, max = max, slices = 11, color = "Reds"}
-mapw3 = Map{target = city, select = "c3w", min = 0, max = max, slices = 11, color = "Reds"}
-mapw4 = Map{target = city, select = "c4w", min = 0, max = max, slices = 11, color = "Reds"}
+mapw1 = Map{target = city, select = "c1_workplace", min = 0, max = max, slices = 11, color = "Reds"}
+mapw2 = Map{target = city, select = "c2_workplace", min = 0, max = max, slices = 11, color = "Reds"}
+mapw3 = Map{target = city, select = "c3_workplace", min = 0, max = max, slices = 11, color = "Reds"}
+mapw4 = Map{target = city, select = "c4_workplace", min = 0, max = max, slices = 11, color = "Reds"}
 
 timer = Timer{
 	Event{action = society},
@@ -215,6 +243,10 @@ timer = Timer{
 }
 
 histogram(society:split("class"))
+totalHistogram(society)
+
 timer:run(300)
+
 histogram(society:split("class"))
+totalHistogram(society)
 
