@@ -84,13 +84,10 @@ Layer{
 
 
 local popUp = [[
-<table style="width:100%">
-<tr>
-    <td style="width: 85%">This application explores the evolution of infrastructure, territorial units, and deforestation in the Brazilian Amazon. It is a Google Maps application that gathers data collected from different sources, including INPE, Ministry of Environment, National Water Agency, and IBGE. The left panel can be used to select the data to be visualized, while the bottom panel manages time. This application is a contribution of the Brazilian National Institute of Science and Technology (INCT) for Climate Change funded by ]]..link("www.cnpq.br", "CNPq")..[[ Grant Number 573797/2008-0 and ]]..link("http://www.fapesp.br/en/", "FAPESP")..[[ Grant Number 2008/57719-9.</td>
+<table style="width:100%"><tr>
+    <td style="width: 85%">This application explores the evolution of infrastructure, territorial units, and deforestation in the Brazilian Amazon. It is a Google Maps application that gathers data collected from different sources, including INPE, Ministry of Environment, National Water Agency, and IBGE. This application does not distribute the data provided by such sources. There are links available in the description of each layer where one can download the official data. This application is a contribution of the Brazilian National Institute of Science and Technology (INCT) for Climate Change, funded by ]]..link("www.cnpq.br", "CNPq")..[[ Grant Number 573797/2008-0 and ]]..link("http://www.fapesp.br/en/", "FAPESP")..[[ Grant Number 2008/57719-9.<p><p><b>How to use this application?</b><br>The left panel can be used to select the data to be visualized. When you click in a layer's name, it is possible to see its description as well as its legend. The bottom panel manages time. The time displayed in the map is the year with a downward arrow in the top. It is possible to select the year by moving the button below the arrow, as well as to play the selected layers using the button in the left.<p><p> <b>How was this application created?</b><br>This application was created using package ]]..link("https://github.com/TerraME/terrame/wiki/Publish", "publish").." of "..link("http://www.terrame.org", "TerraME")..[[. This package can be used to create webmapping applications using corporate solutions as well as individual contributions. The source code to create this application is available ]]..link("https://github.com/TerraME/docs-terrame/blob/master/publishApplications/INCT/final-application.lua", "here")..[[.</td>
     <td style="width: 15%" align="right"><img src="http://www.inct.provisorio.ws/img/main-menu-logo.png"/></td>
-</tr>
-
-</table>
+</tr></table>
 ]]
 
 link = function(http, value) return value.." ("..http..")" end
