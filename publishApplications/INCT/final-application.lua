@@ -1,73 +1,39 @@
--------------------------------------------------------------------------------------------
--- TerraME - a software platform for multiple scale spatially-explicit dynamic modeling.
--- Copyright (C) 2001-2017 INPE and TerraLAB/UFOP -- www.terrame.org
-
--- This code is part of the TerraME framework.
--- This framework is free software; you can redistribute it and/or
--- modify it under the terms of the GNU Lesser General Public
--- License as published by the Free Software Foundation; either
--- version 2.1 of the License, or (at your option) any later version.
-
--- You should have received a copy of the GNU Lesser General Public
--- License along with this library.
-
--- The authors reassure the license terms regarding the warranties.
--- They specifically disclaim any warranties, including, but not limited to,
--- the implied warranties of merchantability and fitness for a particular purpose.
--- The framework provided hereunder is on an "as is" basis, and the authors have no
--- obligation to provide maintenance, support, updates, enhancements, or modifications.
--- In no event shall INPE and TerraLAB / UFOP be held liable to any party for direct,
--- indirect, special, incidental, or consequential damages arising out of the use
--- of this software and its documentation.
---
--------------------------------------------------------------------------------------------
-
--- @example Implementation of a simple Application using Prodes data
--- from a WMS.
+-- Implementation of a Amazon Application for INCT project.
 
 import("gis")
 import("publish")
 
-local file = File("prodes.tview")
-local baseproj = {title = "Prodes", file = file, clean = true}
-
-local source = "wms"
-local basemap = "amazon:"
-local service = "http://35.198.39.192/geoserver/wms"
-
 local layers = {
-	"deforestationMask",
-	"prodes_2000", "prodes_2005", "prodes_2010", "prodes_2015",
-	"dam_1970", "dam_1980", "dam_1990", "dam_2000", "dam_2005", "dam_2010", "dam_2015",
-	"conservationUnits_1970", "conservationUnits_1980", "conservationUnits_1990", "conservationUnits_2000", "conservationUnits_2005", "conservationUnits_2010", "conservationUnits_2015",
-	"indigenousLand_1970", "indigenousLand_1980", "indigenousLand_1990", "indigenousLand_2000", "indigenousLand_2005", "indigenousLand_2010", "indigenousLand_2015",
-	"roads_1970", "roads_1980", "roads_1990", "roads_2000", "roads_2005", "roads_2010", "roads_2015",
-	"settlements_1970", "settlements_1980", "settlements_1990", "settlements_2000", "settlements_2005", "settlements_2010", "settlements_2015"
+	deforestation      = {"Mask"},
+	prodes_            = {                  2000, 2005, 2010, 2015},
+	dam_               = {1970, 1980, 1990, 2000, 2005, 2010, 2015},
+	conservationUnits_ = {1970, 1980, 1990, 2000, 2005, 2010, 2015},
+	indigenousLand_    = {1970, 1980, 1990, 2000, 2005, 2010, 2015},
+	settlements_       = {1970, 1980, 1990, 2000, 2005, 2010, 2015},
+	roads_             = {1970, 1980, 1990, 2000, 2005, 2010, 2015}
 }
 
-file:deleteIfExists()
-local proj = Project(baseproj)
+proj = Project{title = "Prodes", file = "prodes.tview", clean = true}
 
 print("Loading layers from 'WMS'...")
-
 local current = 1
-local size = #layers
-forEachElement(layers, function(_, name)
-	print("Loading layer '"..name.."' (".. current .."/".. size ..")")
-	Layer{
-		project = proj,
-		source = source,
-		service = service,
-		name = name,
-		map = basemap..name
-	}
+forEachElement(layers, function(name, values)
+	print("Loading layer '"..name.."' ("..current.."/"..getn(layers)..")")
+	for i = 1, #values do
+		Layer{
+			project = proj,
+			source = "wms",
+			service = "http://35.198.39.192/geoserver/wms",
+			name = name..values[i],
+			map = "amazon:"..name..values[i]
+		}
+	end
 
 	current = current + 1
 end)
 
 print("Loading layers from 'file'...")
 print("Loading layer 'amazon' (1/2)")
-
 Layer{
 	project = proj,
 	name = "amazon",
@@ -75,13 +41,11 @@ Layer{
 }
 
 print("Loading layer 'amazon' (2/2)")
-
 Layer{
 	project = proj,
 	name = "biome",
 	file = "BiomaAmazonia.shp"
 }
-
 
 local popUp = [[
 <table style="width:100%"><tr>
@@ -179,4 +143,3 @@ Application{
 	}
 }
 
-file:deleteIfExists()
