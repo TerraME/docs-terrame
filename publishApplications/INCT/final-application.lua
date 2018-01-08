@@ -115,7 +115,6 @@ Application{
 		label = {"Federal", "State"},
 		time = "snapshot",
 		transparency = 0.2,
-		visible = false
 	},
 	prodes = View{
 		title = "Deforestation",
@@ -123,6 +122,7 @@ Application{
 		color = {"#FF0000"},
 		label = {"Deforestation"},
 		transparency = 0.3,
+		visible = false,
 		time = "snapshot"
 	},
 	roads = View{
