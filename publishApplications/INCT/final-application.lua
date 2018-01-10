@@ -22,7 +22,6 @@ forEachElement(layers, function(name, values)
 	for i = 1, #values do
 		Layer{
 			project = proj,
-			source = "wms",
 			service = "http://35.198.39.192/geoserver/wms",
 			name = name..values[i],
 			map = "amazon:"..name..values[i]
@@ -85,16 +84,16 @@ Application{
 	deforestationMask = View{
 		title = "Mask",
 		description = "PRODES deforestation mask. It defines areas that are not mapped by "..link("http://www.obt.inpe.br/OBT/assuntos/programas/amazonia/prodes", "PRODES")..". They include regions that were never pristine forest, as well as water bodies. Note, for example, the areas within Legal Amazon that does not belong to Amazon biome, most of them are cerrado areas. In PRODES, water bodies and non-forest areas are two separated classes, but they were combined here for simplification purposes.",
-		color = {{174, 87, 165}},
-		label = {"Non-forest"},
+		color = {174, 87, 165},
+		label = "Non-forest",
 		transparency = 0.6,
 		visible = false,
 	},
 	settlements = View{
 		title = "INCRA Settlements",
 		description = "Rural settlements. Each settlement is a set of agricultural units, whose original rural property belonged to a single owner. Each of these units, called parcels, lots or glebas (in portuguese), is delivered by "..link("http://www.incra.gov.br", "INCRA")..", Brazilian's National Institute of Colonization and Agrarian Reform, to a family with no economic conditions to acquire and maintain a rural property by its own means. Source: "..link("http://acervofundiario.incra.gov.br/acervo/acv.php", "INCRA")..".",
-		color = {"#F6C567"},
-		label = {"Settlement"},
+		color = "#F6C567",
+		label = "Settlement",
 		time = "snapshot",
 		transparency = 0.2,
 		visible = false
@@ -102,8 +101,8 @@ Application{
 	indigenousLand = View{
 		title = "Indigenous lands",
 		description = "Indigenous areas with several status. The map includes identified, declared, delimited, reserved, regularized, and homologated areas. Source: "..link("http://www.funai.gov.br/index.php/shape", "FUNAI")..".",
-		color = {{214, 133, 137}},
-		label = {"Indigenous land"},
+		color = {214, 133, 137},
+		label = "Indigenous land",
 		time = "snapshot",
 		transparency = 0.2,
 		visible = false
@@ -119,8 +118,8 @@ Application{
 	prodes = View{
 		title = "Deforestation",
 		description = "Clear-cut deforestation. This data comes from "..link("http://www.obt.inpe.br/OBT/assuntos/programas/amazonia/prodes", "PRODES").." project. An area marked as deforestation will always belong to this class in PRODES because it might regenerate but will never become pristine forest again. This application uses only data from the digital version of PRODES, avaliable for the year 2000 onwards. Before 2000, no deforestation is shown in the application. Note that Google's satellite data available for the background is newer than the latest PRODES data available in the application (2015).",
-		color = {"#FF0000"},
-		label = {"Deforestation"},
+		color = "#FF0000",
+		label = "Deforestation",
 		transparency = 0.3,
 		visible = false,
 		time = "snapshot"
@@ -136,8 +135,8 @@ Application{
 	dam = View{
 		title = "Hidroeletric plants",
 		description = "Hidroeletric plants in operation. Source: "..link("http://www.ana.gov.br.", "ANA")..".",
-		color = {"#00A1E2"},
-		label = {"Hidroeletric plants"},
+		color = "#00A1E2",
+		label = "Hidroeletric plants",
 		time = "snapshot",
 		visible = false
 	}
