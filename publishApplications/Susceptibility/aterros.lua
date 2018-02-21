@@ -1,5 +1,5 @@
 
-import("terralib")
+import("gis")
 
 project = Project{
 	file = "aterros.tview",
@@ -14,7 +14,9 @@ import("publish")
 Application{
     project = "aterros.tview",
 	base = "terrain",
-    title = "Susceptibilidade de aterros",
+	legend = "Legenda",
+	layers = "Camadas",
+    title = "Susceptibilidade de aterros sanitários",
     description = "Resultados da tese de doutorado entitulada 'Modeling environmental susceptibility of municipal solid waste disposal sites in regional scale'.",
     clean = true,
     output = "VictorWebMap",
