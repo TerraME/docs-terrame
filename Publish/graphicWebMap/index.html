@@ -1,0 +1,3653 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+		<title>Teste de dados Temporais</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+		<link rel="stylesheet" href="./publish.min.css"/>
+	</head>
+	<body>
+		<div class="container">
+			<nav class="navbar navbar-fixed-top navbar-light" style="background-color: #1ea789;" role="navigation">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<a class="navbar-brand custom-font-app-title" style="color: white;">Teste de dados Temporais</a>
+					</div>
+					
+				</div>
+			</nav>
+		</div>
+		<div class="navbar-offset"></div>
+		<div id="map-canvas">
+			<div id="map"></div>
+		</div>
+		<div class="row main-row">
+			<div class="col-sm-4 col-md-2 sidebar sidebar-left pull-left">
+				<div class="panel-group sidebar-body" id="accordion-left">
+					<div class="panel panel-default">
+						<div class="panel-heading padding-header" >
+							<h4 class="panel-title custom-font-subtitle">
+								<i class="fa fa-list-alt"></i><a id="layers-title" data-toggle="collapse" href="#layers"> Layers</a>
+								<span class="pull-right slide-submenu"><i class="fa fa-chevron-left"></i></span>
+							</h4>
+						</div>
+						<div id="layers" class="panel-collapse collapse in overflow-y">
+								<div class="panel-body list-group padding-body">
+										<label>
+											<input name="deter" type="checkbox">
+											<a id="deter" href="javascript:void(0);"> Deter </a>
+										</label>
+								</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading padding-header">
+							<h4 class="panel-title custom-font-subtitle">
+								<i class="fa fa-list-alt"></i><a id="description-title" data-toggle="collapse" href="#properties"> Description</a>
+							</h4>
+						</div>
+						<div id="properties" class="panel-collapse collapse overflow-y">
+							<div class="panel-body padding-body">
+								<p class="custom-font-body" id="layer-description"></p>
+								<button id="more" type="button" class="btn btn-default custom-font-more" style="display:none;">
+									More
+								</button>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-default">
+						<div class="panel-heading padding-header">
+							<h4 class="panel-title custom-font-subtitle">
+								<i class="fa fa-list-alt"></i><a id="legend-title" data-toggle="collapse" href="#legends"> Legend</a>
+							</h4>
+						</div>
+						<div id="legends" class="panel-collapse collapse overflow-y">
+							<div id="legend" class="panel-body padding-body custom-font-legend"></div>
+						</div>
+					</div>
+					<div id="panel-download" class="panel panel-default">
+						<div class="panel-heading padding-header" style="height: 29px;">
+							<h4 class="panel-title custom-font-subtitle">
+								<i class="fa fa-download"></i><a id="download-title"> Download</a>
+							</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mini-submenu mini-submenu-left pull-left">
+			<i class="fa fa-list-alt"></i>
+		</div>
+		<img id="loader" src="./default.gif" hidden="hidden"/>
+		<div id="loader-message"><h4 id="loader-message-text"></h4></div>
+		<footer class="navbar-default navbar-fixed-bottom">
+			<div id="footer" class="container-fluid">
+				<p>Powered by package <a href="https://github.com/TerraME/publish" target="_blank">publish</a> of <a href="http://www.terrame.org" target="_blank">TerraME</a>.</p>
+			</div>
+		</footer>
+		<div class="modal fade modal-player" id="modal-app-description" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title custom-font-subtitle">Teste de dados Temporais</h4>
+					</div>
+					<div class="modal-body">
+						<p class="custom-font-body">Small application with some data</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-info" data-dismiss="modal">Ok</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter4" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter4"> Col 4</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter4">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 4-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 4</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.0</td><td>3.123069961e-06</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.0</td><td>3.123069961e-06</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.0</td><td>3.123069961e-06</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="4-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter5" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter5"> Col 5</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter5">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 5-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 5</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>2.8717832679e-05</td><td>5.6409409417e-05</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>2.8717832679e-05</td><td>5.6409409417e-05</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>2.8717832679e-05</td><td>5.6409409417e-05</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="5-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter6" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter6"> Col 6</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter6">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 6-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 6</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>7.527689295e-06</td><td>2.064497947e-06</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>7.527689295e-06</td><td>2.064497947e-06</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>7.527689295e-06</td><td>2.064497947e-06</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="6-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter1"> Col 1</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter1">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 1-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 1</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>1.5623214134e-05</td><td>4.754790865e-06</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>1.5623214134e-05</td><td>4.754790865e-06</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>1.5623214134e-05</td><td>4.754790865e-06</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="1-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter2" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter2"> Col 2</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter2">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 2-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 2</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>2.7503701434e-05</td><td>2.537277744e-06</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>2.7503701434e-05</td><td>2.537277744e-06</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>2.7503701434e-05</td><td>2.537277744e-06</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="2-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter3" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter3"> Col 3</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter3">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 3-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 3</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>7.4378304228e-05</td><td>4.8093487613e-05</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>7.4378304228e-05</td><td>4.8093487613e-05</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>7.4378304228e-05</td><td>4.8093487613e-05</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="3-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter4" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter4"> Col 4</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter4">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 4-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 4</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.000120406666927</td><td>0.000124656473863</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.000120406666927</td><td>0.000124656473863</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.000120406666927</td><td>0.000124656473863</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="4-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter5" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter5"> Col 5</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter5">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 5-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 5</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>1.732574419e-05</td><td>0.000113705368671</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>1.732574419e-05</td><td>0.000113705368671</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>1.732574419e-05</td><td>0.000113705368671</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="5-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter6" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter6"> Col 6</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter6">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 6-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 6</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.000226915159797</td><td>0.000388065523747</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.000226915159797</td><td>0.000388065523747</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.000226915159797</td><td>0.000388065523747</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="6-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter7" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter7"> Col 7</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter7">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 7-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 7</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.000474067044038</td><td>0.000349394747937</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.000474067044038</td><td>0.000349394747937</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.000474067044038</td><td>0.000349394747937</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="7-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter8" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter8"> Col 8</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter8">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 8-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 8</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>2.238991301e-06</td><td>1.5322515095e-05</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>2.238991301e-06</td><td>1.5322515095e-05</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>2.238991301e-06</td><td>1.5322515095e-05</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="8-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter0" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter0"> Col 0</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter0">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 0-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 0</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>2.182599972e-05</td><td>5.468045132e-06</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>2.182599972e-05</td><td>5.468045132e-06</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>2.182599972e-05</td><td>5.468045132e-06</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="0-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter1"> Col 1</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter1">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 1-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 1</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>7.5859352791e-05</td><td>2.1269411488e-05</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>7.5859352791e-05</td><td>2.1269411488e-05</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>7.5859352791e-05</td><td>2.1269411488e-05</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="1-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter2" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter2"> Col 2</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter2">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 2-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 2</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.00067124832462</td><td>0.00026693508993</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.00067124832462</td><td>0.00026693508993</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.00067124832462</td><td>0.00026693508993</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="2-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter3" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter3"> Col 3</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter3">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 3-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 3</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.000788439806643</td><td>0.000699488659591</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.000788439806643</td><td>0.000699488659591</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.000788439806643</td><td>0.000699488659591</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="3-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter4" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter4"> Col 4</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter4">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 4-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 4</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.001099465341804</td><td>0.000830287011075</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.001099465341804</td><td>0.000830287011075</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.001099465341804</td><td>0.000830287011075</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="4-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter5" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter5"> Col 5</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter5">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 5-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 5</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.00031526724835</td><td>0.000400438283707</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.00031526724835</td><td>0.000400438283707</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.00031526724835</td><td>0.000400438283707</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="5-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter6" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter6"> Col 6</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter6">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 6-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 6</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.000156525130744</td><td>0.000318325431606</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.000156525130744</td><td>0.000318325431606</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.000156525130744</td><td>0.000318325431606</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="6-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter7" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter7"> Col 7</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter7">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 7-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 7</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.000352696572053</td><td>0.000250423981478</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.000352696572053</td><td>0.000250423981478</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.000352696572053</td><td>0.000250423981478</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="7-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter8" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter8"> Col 8</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter8">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 8-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 8</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>8.7502269983e-05</td><td>5.0610428211e-05</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>8.7502269983e-05</td><td>5.0610428211e-05</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>8.7502269983e-05</td><td>5.0610428211e-05</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="8-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter9" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter9"> Col 9</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter9">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 9-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 9</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.0</td><td>0.0</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="9-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter0" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter0"> Col 0</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter0">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 0-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 0</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>6.4239676265e-05</td><td>5.95181259e-06</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>6.4239676265e-05</td><td>5.95181259e-06</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>6.4239676265e-05</td><td>5.95181259e-06</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="0-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter1"> Col 1</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter1">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 1-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 1</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>1.609808086e-06</td><td>2.03635392e-07</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>1.609808086e-06</td><td>2.03635392e-07</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>1.609808086e-06</td><td>2.03635392e-07</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="1-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter2" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter2"> Col 2</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter2">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 2-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 2</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>3.2514496807e-05</td><td>1.324567363e-06</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>3.2514496807e-05</td><td>1.324567363e-06</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>3.2514496807e-05</td><td>1.324567363e-06</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="2-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter3" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter3"> Col 3</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter3">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 3-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 3</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.000221888582794</td><td>4.8611660714e-05</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.000221888582794</td><td>4.8611660714e-05</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.000221888582794</td><td>4.8611660714e-05</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="3-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter4" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter4"> Col 4</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter4">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 4-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 4</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.000357155614245</td><td>0.00010575310888</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.000357155614245</td><td>0.00010575310888</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.000357155614245</td><td>0.00010575310888</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="4-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter5" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter5"> Col 5</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter5">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 5-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 5</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.000616620762818</td><td>0.000314395314726</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.000616620762818</td><td>0.000314395314726</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.000616620762818</td><td>0.000314395314726</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="5-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter6" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter6"> Col 6</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter6">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 6-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 6</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.001103649890089</td><td>0.000542361735819</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.001103649890089</td><td>0.000542361735819</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.001103649890089</td><td>0.000542361735819</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="6-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter7" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter7"> Col 7</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter7">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 7-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 7</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.00056697708006</td><td>0.001135464608685</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.00056697708006</td><td>0.001135464608685</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.00056697708006</td><td>0.001135464608685</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="7-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter8" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter8"> Col 8</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter8">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 8-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 8</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>8.1170958816e-05</td><td>3.2000341319e-05</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>8.1170958816e-05</td><td>3.2000341319e-05</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>8.1170958816e-05</td><td>3.2000341319e-05</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="8-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter9" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter9"> Col 9</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter9">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 9-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 9</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>2.3511533993e-05</td><td>6.087314926e-06</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>2.3511533993e-05</td><td>6.087314926e-06</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>2.3511533993e-05</td><td>6.087314926e-06</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="9-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter10" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter10"> Col 10</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter10">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 10-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 10</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.0</td><td>0.0</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="10-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter0" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter0"> Col 0</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter0">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 0-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 0</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.0</td><td>0.0</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="0-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter1"> Col 1</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter1">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 1-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 1</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>2.81302014e-07</td><td>9.10144638e-07</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>2.81302014e-07</td><td>9.10144638e-07</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>2.81302014e-07</td><td>9.10144638e-07</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="1-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter2" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter2"> Col 2</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter2">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 2-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 2</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>1.6565364009e-05</td><td>4.54896003e-07</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>1.6565364009e-05</td><td>4.54896003e-07</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>1.6565364009e-05</td><td>4.54896003e-07</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="2-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter3" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter3"> Col 3</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter3">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 3-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 3</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>2.725467654e-06</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>2.725467654e-06</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>2.725467654e-06</td><td>0.0</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="3-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter4" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter4"> Col 4</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter4">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 4-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 4</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>6.50709017e-07</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>6.50709017e-07</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>6.50709017e-07</td><td>0.0</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="4-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter5" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter5"> Col 5</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter5">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 5-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 5</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>1.4929839465e-05</td><td>4.456554863e-06</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>1.4929839465e-05</td><td>4.456554863e-06</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>1.4929839465e-05</td><td>4.456554863e-06</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="5-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter6" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter6"> Col 6</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter6">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 6-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 6</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>5.626175972e-05</td><td>4.3391125491e-05</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>5.626175972e-05</td><td>4.3391125491e-05</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>5.626175972e-05</td><td>4.3391125491e-05</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="6-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter7" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter7"> Col 7</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter7">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 7-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 7</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>5.3870359151e-05</td><td>1.1171854205e-05</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>5.3870359151e-05</td><td>1.1171854205e-05</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>5.3870359151e-05</td><td>1.1171854205e-05</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="7-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter8" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter8"> Col 8</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter8">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 8-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 8</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.000215358609514</td><td>2.5861138033e-05</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.000215358609514</td><td>2.5861138033e-05</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.000215358609514</td><td>2.5861138033e-05</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="8-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter9" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter9"> Col 9</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter9">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 9-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 9</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.000193722396263</td><td>0.000100536653199</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.000193722396263</td><td>0.000100536653199</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.000193722396263</td><td>0.000100536653199</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="9-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter10" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter10"> Col 10</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter10">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 10-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 10</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>2.5212164326e-05</td><td>4.290678926e-06</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>2.5212164326e-05</td><td>4.290678926e-06</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>2.5212164326e-05</td><td>4.290678926e-06</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="10-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter11" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter11"> Col 11</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter11">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 11-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 11</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.0</td><td>0.0</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="11-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter1"> Col 1</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter1">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 1-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 1</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.0</td><td>0.0</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="1-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter2" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter2"> Col 2</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter2">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 2-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 2</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.0</td><td>0.0</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="2-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter3" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter3"> Col 3</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter3">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 3-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 3</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>7.5141992e-07</td><td>4.50001863e-07</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>7.5141992e-07</td><td>4.50001863e-07</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>7.5141992e-07</td><td>4.50001863e-07</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="3-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter4" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter4"> Col 4</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter4">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 4-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 4</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.0</td><td>8.892647088e-06</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.0</td><td>8.892647088e-06</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.0</td><td>8.892647088e-06</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="4-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter5" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter5"> Col 5</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter5">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 5-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 5</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>1.085027863e-06</td><td>3.327959189e-06</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>1.085027863e-06</td><td>3.327959189e-06</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>1.085027863e-06</td><td>3.327959189e-06</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="5-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter6" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter6"> Col 6</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter6">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 6-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 6</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>2.1094867636e-05</td><td>1.0118188158e-05</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>2.1094867636e-05</td><td>1.0118188158e-05</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>2.1094867636e-05</td><td>1.0118188158e-05</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="6-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter7" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter7"> Col 7</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter7">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 7-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 7</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>3.2383730618e-05</td><td>8.367803812e-06</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>3.2383730618e-05</td><td>8.367803812e-06</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>3.2383730618e-05</td><td>8.367803812e-06</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="7-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter8" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter8"> Col 8</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter8">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 8-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 8</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>1.4989498122e-05</td><td>1.15676668e-07</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>1.4989498122e-05</td><td>1.15676668e-07</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>1.4989498122e-05</td><td>1.15676668e-07</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="8-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter9" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter9"> Col 9</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter9">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 9-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 9</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>3.1505617152e-05</td><td>1.970415972e-05</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>3.1505617152e-05</td><td>1.970415972e-05</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>3.1505617152e-05</td><td>1.970415972e-05</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="9-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter10" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter10"> Col 10</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter10">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 10-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 10</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>3.0664982899e-05</td><td>6.409527627e-06</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>3.0664982899e-05</td><td>6.409527627e-06</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>3.0664982899e-05</td><td>6.409527627e-06</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="10-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter11" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter11"> Col 11</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter11">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 11-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 11</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.0</td><td>0.0</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="11-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter1" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter1"> Col 1</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter1">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 1-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 1</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.0</td><td>0.0</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="1-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter2" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter2"> Col 2</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter2">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 2-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 2</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>2.86717678e-07</td><td>1.69413721e-07</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>2.86717678e-07</td><td>1.69413721e-07</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>2.86717678e-07</td><td>1.69413721e-07</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="2-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter3" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter3"> Col 3</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter3">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 3-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 3</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.0</td><td>0.0</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="3-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter4" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter4"> Col 4</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter4">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 4-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 4</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>9.229782547e-06</td><td>6.5262409974e-05</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>9.229782547e-06</td><td>6.5262409974e-05</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>9.229782547e-06</td><td>6.5262409974e-05</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="4-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter5" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter5"> Col 5</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter5">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 5-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 5</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>3.4386706e-06</td><td>1.2141458047e-05</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>3.4386706e-06</td><td>1.2141458047e-05</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>3.4386706e-06</td><td>1.2141458047e-05</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="5-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter6" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter6"> Col 6</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter6">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 6-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 6</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.0</td><td>0.0</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="6-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter7" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter7"> Col 7</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter7">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 7-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 7</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.0</td><td>0.0</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="7-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter8" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter8"> Col 8</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter8">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 8-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 8</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>1.1942644425e-05</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>1.1942644425e-05</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>1.1942644425e-05</td><td>0.0</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="8-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter9" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter9"> Col 9</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter9">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 9-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 9</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.0</td><td>0.0</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="9-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter3" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter3"> Col 3</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter3">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 3-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 3</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>5.74682113e-07</td><td>5.401320353e-06</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>5.74682113e-07</td><td>5.401320353e-06</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>5.74682113e-07</td><td>5.401320353e-06</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="3-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter4" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter4"> Col 4</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter4">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 4-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 4</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>4.965643334e-06</td><td>1.8545374252e-05</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>4.965643334e-06</td><td>1.8545374252e-05</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>4.965643334e-06</td><td>1.8545374252e-05</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="4-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter5" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter5"> Col 5</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter5">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 5-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 5</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>5.39105538e-07</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>5.39105538e-07</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>5.39105538e-07</td><td>0.0</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="5-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter7" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter7"> Col 7</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter7">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 7-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 7</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.0</td><td>0.0</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="7-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade modal-player" id="modal-report-deter8" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h2 class="modal-title custom-font-report-title" id="modal-report-label-deter8"> Col 8</h2>
+					</div>
+					<div class="modal-body" id="modal-report-text-deter8">
+						<h4 class="custom-font-subtitle"><strong>First Graphic application</strong></h4>
+						<br/>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+													<p class="custom-font-body">This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data</p>
+						
+						<!-- Function add Video Youtube/Vimeo -->
+												<hr>
+						<!-- Function add Video Youtube/Vimeo -->
+						<!-- Function addGraphic -->
+							<table class=" table table-hover 8-0 hidden" id="data">
+								<tr>
+									<th colspan="100%" class="text-center">Data of 8</th>
+								</tr>
+								<tr>
+									<th></th>
+										<th>area01</th>
+										<th>area02</th>
+								</tr>
+										<tr>
+											<td>dg dÁrea</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>d Área</td><td>0.0</td><td>0.0</td>
+										</tr>
+										<tr>
+											<td>mcwd</td><td>0.0</td><td>0.0</td>
+										</tr>
+							</table>
+							<div style="width: 800px; height: 500px">
+								<br/>
+								<canvas class="chart" id="8-0" ></canvas>
+								<br/>
+							</div>
+												
+						<!-- Function add Video Youtube/Vimeo -->
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="modal-completed-description" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title custom-font-subtitle" id="modal-title-description"></h4>
+					</div>
+					<div class="modal-body">
+						<p class="custom-font-body" id="info-description"></p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-info" data-dismiss="modal">Ok</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="./jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+		
+		<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		
+		<script type="text/javascript" src="./config.js"></script>
+		<script type="text/javascript" src="./publish.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+		<script type="text/javascript" src="./graphic.js"></script>
+		<script type="text/javascript" src="./player.js"></script>
+
+	</body>
+</html>
+
