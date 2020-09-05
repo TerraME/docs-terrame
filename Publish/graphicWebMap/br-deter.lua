@@ -1,11 +1,9 @@
-
-import("gis")
-
-project = Project{
-	file = "amaz.tview",
-	clean = true,
-	deter = "amz300_4326.shp",
-}
+-- TODO:
+-- 150km resolucao
+-- atributo agregado para colorir mapa
+-- atributos para grafico
+-- fazer grafico aparecer
+-- pegar os nomes dos municipios que tem intersecao com a celula
 
 local content = {
 		A = "This is application sample that show you a dynamic graphic, click on about the graphic label to turn on and turn off the graphic data",
@@ -20,9 +18,10 @@ Application{
 	description = "Small application with some data",
 	output	= "graphicWebMap",
 
-	deter = View{
-		color = "PuBuGn",
-		select  = "col",
+	deter_up = View{
+        value = {"low", "medium", "high"},
+        color = {"blue", "yellow", "red"},
+		select  = "status",
 		description = "Dados de teste",
 		report = function(cell)
 			local report = Report{
@@ -65,6 +64,7 @@ Application{
 					} -- end values
 				} -- end table
 			report:addGraphic(GRAPHIC01)
+            report:addText("Values: "..cell.ArDS0520..", "..cell.ArDS0620)
 
 			return report
 		end
