@@ -14,15 +14,15 @@ import("publish")
 Application{
 	project = "amaz.tview",
 	base = "roadmap",
-	title	= "Teste de dados Temporais",
-	description = "Small application with some data",
+	title	= "DETER acumulado",
+	description = "Esta aplicação mostra os dados do DETER acumulados para o ano de 2020, em uma resolução de 150x150km.",
 	output	= "graphicWebMap",
 
 	deter_up = View{
         value = {"low", "medium", "high"},
         color = {"blue", "yellow", "red"},
 		select  = "status",
-		description = "Dados de teste",
+		description = "DETER acumulado 2020",
 		report = function(cell)
 			local report = Report{
 				title = "Col "..cell.col,
