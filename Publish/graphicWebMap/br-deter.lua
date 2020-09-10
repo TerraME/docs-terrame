@@ -25,8 +25,7 @@ Application{
 		description = "DETER acumulado 2020",
 		report = function(cell)
 			local report = Report{
-				title = "Col "..cell.col.."x"..cell.row,
-				print(cell.col),
+				title = "Col "..cell.col.."x"..cell.row
 			}
 
 			------ Text block ---------
@@ -36,7 +35,7 @@ Application{
 
 			------ Creat Graphic -----------
 			local GRAPHIC01 = {
-				id = 0, -- madatory start at zero
+--				id = 0, -- madatory start at zero
 				title = "Data of "..cell.col,
 				columns = {
 						"area01",
