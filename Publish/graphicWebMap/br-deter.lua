@@ -25,7 +25,7 @@ Application{
 		description = "DETER acumulado 2020",
 		report = function(cell)
 			local report = Report{
-				title = "Col "..cell.col,
+				title = "Col "..cell.col.."x"..cell.row,
 				print(cell.col),
 			}
 
