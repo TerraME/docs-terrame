@@ -8,6 +8,7 @@
 import("publish")
 
 Application{
+ 	key = "AIzaSyA1coAth-Bo7m99rnxOm2oOBB88AmaSbOk",
 	project = "amaz_final.tview",
 	base = "roadmap",
 	title	= "DETER acumulado",
